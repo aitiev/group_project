@@ -71,15 +71,6 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
 
-    def get_permissions(self):
-        if self.request.method in ['post']:
-            permissions = [IsAuthenticated, ]
-        elif self.request.method in ['put', 'patch', 'delete']:
-            permissions = [IsAuthenticated, IsOwnerOrReadOnly]
-        else:
-            permissions = []
-        return [permission() for permission in permissions]
-
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
